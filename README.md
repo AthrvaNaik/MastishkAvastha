@@ -1,6 +1,3 @@
-Here’s the updated README file with a mention of the ML model:
-
-
 # Mental Health Monitoring App
 
 ## Overview
