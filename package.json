@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "chart.js": "^4.4.4",
+    "chart.js": "^4.4.5",
     "mental-health": "file:",
     "react": "^18.3.1",
     "react-chartjs-2": "^5.2.0",

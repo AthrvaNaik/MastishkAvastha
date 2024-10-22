@@ -1,68 +1,98 @@
-import { Line } from "react-chartjs-2";
-import { Chart as ChartJS, LineElement, CategoryScale, LinearScale, PointElement } from "chart.js";
+// Dashboard.jsx
+import React from 'react';
+import { Line, Doughnut } from 'react-chartjs-2';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+  ArcElement, // For the Doughnut chart
+} from 'chart.js';
 
-ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement);
+// Register necessary components with Chart.js
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+  ArcElement // Required for Doughnut charts
+);
 
-function Dashboard() {
-  const stepsData = {
-    labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-    datasets: [
-      {
-        label: "Steps per day",
-        data: [5000, 6500, 7000, 6000, 7200, 8000, 7500],
-        backgroundColor: "rgba(75, 192, 192, 0.2)",
-        borderColor: "rgba(75, 192, 192, 1)",
-        borderWidth: 1,
-      },
-    ],
-  };
+const Dashboard = () => {
+  const weeklySteps = [7000, 8000, 6500, 9000, 8500, 9200, 8700]; // Hardcoded values for weekly steps
 
+  // Data for pulse rate and heartbeat graphs
   const pulseRateData = {
-    labels: ["6 AM", "12 PM", "6 PM", "12 AM"],
+    labels: ['12 AM', '4 AM', '8 AM', '12 PM', '4 PM', '8 PM'],
     datasets: [
       {
-        label: "Average Pulse Rate",
-        data: [70, 75, 72, 78],
-        backgroundColor: "rgba(153, 102, 255, 0.2)",
-        borderColor: "rgba(153, 102, 255, 1)",
-        borderWidth: 1,
+        label: 'Pulse Rate',
+        data: [70, 72, 68, 75, 73, 70],
+        borderColor: '#38bdf8',
+        fill: false,
+      },
+      {
+        label: 'Heart Rate',
+        data: [65, 67, 64, 70, 68, 66],
+        borderColor: '#fb7185',
+        fill: false,
       },
     ],
   };
 
-  const heartbeatData = {
-    labels: ["6 AM", "12 PM", "6 PM", "12 AM"],
+  // Data for group overview in pie chart
+  const groupData = {
+    labels: ['Steps', 'Calories', 'Water Intake'],
     datasets: [
       {
-        label: "Average Heartbeat",
-        data: [60, 65, 63, 70],
-        backgroundColor: "rgba(255, 99, 132, 0.2)",
-        borderColor: "rgba(255, 99, 132, 1)",
-        borderWidth: 1,
+        label: 'Health Metrics',
+        data: [804, 227, 159],
+        backgroundColor: ['#34d399', '#fbbf24', '#f472b6'],
+        hoverBackgroundColor: ['#10b981', '#f59e0b', '#ec4899'],
       },
     ],
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md">
-      <h2 className="text-3xl font-bold mb-6 text-center">Dashboard</h2>
+    <div>
+      <h2 className="text-2xl font-bold mb-4">Health Metrics Overview</h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Weekly Steps */}
+        <div className="bg-blue-100 p-4 rounded-lg shadow-md">
+          <h3 className="text-lg font-semibold mb-2">Steps Over Last Week</h3>
+          <p className="text-4xl font-bold">{weeklySteps.reduce((a, b) => a + b, 0)}</p>
+        </div>
 
-      <div className="mb-8">
-        <h3 className="text-xl font-semibold mb-4">Daily Steps</h3>
-        <Line data={stepsData} />
-      </div>
+        {/* Pulse Rate & Heartbeat */}
+        <div className="bg-white p-4 rounded-lg shadow-md">
+          <Line data={pulseRateData} />
+        </div>
 
-      <div className="mb-8">
-        <h3 className="text-xl font-semibold mb-4">Average Pulse Rate</h3>
-        <Line data={pulseRateData} />
-      </div>
+        {/* Health Metrics Overview */}
+        <div className="bg-white p-4 rounded-lg shadow-md">
+          <Doughnut data={groupData} />
+        </div>
 
-      <div className="mb-8">
-        <h3 className="text-xl font-semibold mb-4">Average Heartbeat</h3>
-        <Line data={heartbeatData} />
+        {/* Additional Info */}
+        <div className="bg-white p-4 rounded-lg shadow-md">
+          <h3 className="text-lg font-semibold mb-2">Water Intake</h3>
+          <p className="text-4xl font-bold">2.5L</p>
+        </div>
+
+        <div className="bg-white p-4 rounded-lg shadow-md">
+          <h3 className="text-lg font-semibold mb-2">Sleep Duration</h3>
+          <p className="text-4xl font-bold">7h 30m</p>
+        </div>
       </div>
     </div>
   );
-}
+};
 
 export default Dashboard;

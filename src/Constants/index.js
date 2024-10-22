@@ -55,13 +55,18 @@ export const QuestionsData = [
 export const NavElements = [
   {
     id: 1,
-    name: "Dashboard",
+    name: "Profile",
     path: "/",
   },
   {
     id: 2,
     name: "Questions",
     path: "/questions",
+  },
+  {
+    id: 3,
+    name: "Support",
+    path: "/support",
   },
 
 ];
